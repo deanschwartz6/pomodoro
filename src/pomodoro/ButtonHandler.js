@@ -1,20 +1,20 @@
 import React from "react";
 
-function ButtonHandler({dataTestId, spanClass, className, type, focusDuration, setFocusDuration, breakDuration, setBreakDuration, isTimerRunning}) {
+function ButtonHandler({dataTestId, spanClass, className, type, focusDuration, setFocusDuration, breakDuration, setBreakDuration, sessionActive}) {
     const handleClick = () => {
         if (dataTestId.includes("increase-focus")){
             if (focusDuration > 59){
                 //do nothing
             } else {
-                setFocusDuration(focusDuration + 1);
-                console.log("focus duration + 1");
+                setFocusDuration(focusDuration + 5);
+                console.log("focus duration + 5");
             }
         } else if (dataTestId.includes("decrease-focus")){
             if (focusDuration < 6){
                 //do nothing
             } else {
-                setFocusDuration(focusDuration - 1);
-                console.log("focus duration - 1");
+                setFocusDuration(focusDuration - 5);
+                console.log("focus duration - 5");
             }
         } else if (dataTestId.includes("increase-break")){
             if (breakDuration > 14){
@@ -32,7 +32,7 @@ function ButtonHandler({dataTestId, spanClass, className, type, focusDuration, s
             }
         }
     };
-    if (isTimerRunning === false){
+    if (sessionActive === false){
         return (
             <button
             type={type}

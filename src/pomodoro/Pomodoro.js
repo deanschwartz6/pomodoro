@@ -3,8 +3,9 @@ import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
 import {minutesToDuration} from "../utils/duration";
 import {secondsToDuration} from "../utils/duration";
-import ButtonHandler from "./ButtonHandler.js";
+import ButtonHandler from "./ButtonHandler";
 import StopButtonHandler from "./StopButtonHandler";
+import TimerSection from "./TimerSection";
 
 function Pomodoro() {
   // Timer starts out paused
@@ -79,7 +80,7 @@ function Pomodoro() {
                 spanClass="oi oi-minus"
                 focusDuration={focusDuration}
                 setFocusDuration={setFocusDuration}
-                isTimerRunning={isTimerRunning}
+                sessionActive={sessionActive}
               />
               {/* TODO: Implement increasing focus duration  and disable during a focus or break session */}
               <ButtonHandler
@@ -89,7 +90,7 @@ function Pomodoro() {
                 spanClass="oi oi-plus"
                 focusDuration={focusDuration}
                 setFocusDuration={setFocusDuration}
-                isTimerRunning={isTimerRunning}
+                sessionActive={sessionActive}
               />
             </div>
           </div>
@@ -110,7 +111,7 @@ function Pomodoro() {
                   spanClass="oi oi-minus"
                   breakDuration={breakDuration}
                   setBreakDuration={setBreakDuration}
-                  isTimerRunning={isTimerRunning}
+                  sessionActive={sessionActive}
                 />
                 {/* TODO: Implement increasing break duration and disable during a focus or break session*/}
                 <ButtonHandler
@@ -120,7 +121,7 @@ function Pomodoro() {
                   spanClass="oi oi-plus"
                   breakDuration={breakDuration}
                   setBreakDuration={setBreakDuration}
-                  isTimerRunning={isTimerRunning}
+                  sessionActive={sessionActive}
                 />
               </div>
             </div>
@@ -159,39 +160,22 @@ function Pomodoro() {
               setSessionCountdown={setSessionCountdown}
               setFocusSessionActive={setFocusSessionActive}
               setSessionActive={setSessionActive}
+              sessionActive={sessionActive}
             />
           </div>
         </div>
       </div>
-      <div>
-        {/* TODO: This area should show only when there is an active focus or break - i.e. the session is running or is paused */}
-        <div className="row mb-2">
-          <div className="col">
-            {/* TODO: Update message below to include current session (Focusing or On Break) total duration */}
-            <h2 data-testid="session-title">
-              {focusSessionActive ? "Focusing" : "On Break"} for {focusSessionActive ? `${minutesToDuration(focusDuration)}` : `${minutesToDuration(breakDuration)}`} minutes
-            </h2>
-            {/* TODO: Update message below correctly format the time remaining in the current session */}
-            <p className="lead" data-testid="session-sub-title">
-              {focusSessionActive ? `${secondsToDuration(focusDuration * 60 - sessionCountdown)}` : `${secondsToDuration(breakDuration * 60 - sessionCountdown)}`} remaining
-            </p>
-          </div>
-        </div>
-        <div className="row mb-2">
-          <div className="col">
-            <div className="progress" style={{ height: "20px" }}>
-              <div
-                className="progress-bar"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-valuenow="0" // TODO: Increase aria-valuenow as elapsed time increases
-                style={{ width: "0%" }} // TODO: Increase width % as elapsed time increases
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+        <TimerSection
+          sessionActive={sessionActive}
+          focusSessionActive={focusSessionActive}
+          minutesToDuration={minutesToDuration}
+          secondsToDuration={secondsToDuration}
+          focusDuration={focusDuration}
+          breakDuration={breakDuration}
+          sessionCountdown={sessionCountdown}
+          barValue={barValue}
+          isTimerRunning={isTimerRunning}
+        />
     </div>
   );
 }

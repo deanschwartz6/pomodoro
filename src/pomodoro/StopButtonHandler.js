@@ -1,16 +1,16 @@
 import React from "react";
 
-function StopButtonHandler ({isTimerRunning, setIsTimerRunning, setFocusDuration, setBreakDuration, setSessionActive, setSessionCountdown, setFocusSessionActive}) {
+function StopButtonHandler ({isTimerRunning, setIsTimerRunning, setFocusDuration, setBreakDuration, setSessionActive, setSessionCountdown, setFocusSessionActive, sessionActive}) {
     const handleClick = () => {
         setIsTimerRunning(false);
         setFocusDuration(25);
         setBreakDuration(5);
-        setSessionCountdown((currentSessionCountdown) => 0);
+        setSessionCountdown(() => 0);
         setFocusSessionActive(false);
         setSessionActive(false);
     };
 
-    if (isTimerRunning === true){
+    if (sessionActive === true){
         return (
             <button
             type="button"
