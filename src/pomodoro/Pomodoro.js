@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
+import ButtonHandler from "./ButtonHandler.js";
 
 // These functions are defined outside of the component to insure they do not have access to state
 // and are, therefore more likely to be pure.
@@ -54,8 +55,8 @@ function Pomodoro() {
   const [session, setSession] = useState(null);
 
   // ToDo: Allow the user to adjust the focus and break duration.
-  const focusDuration = 25;
-  const breakDuration = 5;
+  const [focusDuration, setFocusDuration] = useState(25);
+  const [breakDuration, setBreakDuration] = useState(5);
 
   /**
    * Custom hook that invokes the callback function every second
@@ -102,25 +103,27 @@ function Pomodoro() {
           <div className="input-group input-group-lg mb-2">
             <span className="input-group-text" data-testid="duration-focus">
               {/* TODO: Update this text to display the current focus session duration */}
-              Focus Duration: 25:00
+              Focus Duration: {focusDuration}:00
             </span>
             <div className="input-group-append">
               {/* TODO: Implement decreasing focus duration and disable during a focus or break session */}
-              <button
+              <ButtonHandler
                 type="button"
                 className="btn btn-secondary"
-                data-testid="decrease-focus"
-              >
-                <span className="oi oi-minus" />
-              </button>
+                dataTestId="decrease-focus"
+                spanClass="oi oi-minus"
+                focusDuration={focusDuration}
+                setFocusDuration={setFocusDuration}
+              />
               {/* TODO: Implement increasing focus duration  and disable during a focus or break session */}
-              <button
+              <ButtonHandler
                 type="button"
                 className="btn btn-secondary"
-                data-testid="increase-focus"
-              >
-                <span className="oi oi-plus" />
-              </button>
+                dataTestId="increase-focus"
+                spanClass="oi oi-plus"
+                focusDuration={focusDuration}
+                setFocusDuration={setFocusDuration}
+              />
             </div>
           </div>
         </div>
@@ -129,25 +132,27 @@ function Pomodoro() {
             <div className="input-group input-group-lg mb-2">
               <span className="input-group-text" data-testid="duration-break">
                 {/* TODO: Update this text to display the current break session duration */}
-                Break Duration: 05:00
+                Break Duration: {breakDuration}:00
               </span>
               <div className="input-group-append">
                 {/* TODO: Implement decreasing break duration and disable during a focus or break session*/}
-                <button
+                <ButtonHandler
                   type="button"
                   className="btn btn-secondary"
-                  data-testid="decrease-break"
-                >
-                  <span className="oi oi-minus" />
-                </button>
+                  dataTestId="decrease-break"
+                  spanClass="oi oi-minus"
+                  breakDuration={breakDuration}
+                  setBreakDuration={setBreakDuration}
+                />
                 {/* TODO: Implement increasing break duration and disable during a focus or break session*/}
-                <button
+                <ButtonHandler
                   type="button"
                   className="btn btn-secondary"
-                  data-testid="increase-break"
-                >
-                  <span className="oi oi-plus" />
-                </button>
+                  dataTestId="increase-break"
+                  spanClass="oi oi-plus"
+                  breakDuration={breakDuration}
+                  setBreakDuration={setBreakDuration}
+                />
               </div>
             </div>
           </div>
