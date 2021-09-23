@@ -3,6 +3,7 @@ import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
 import {minutesToDuration} from "../utils/duration";
 import ButtonHandler from "./ButtonHandler.js";
+import StopButtonHandler from "./StopButtonHandler";
 
 // These functions are defined outside of the component to insure they do not have access to state
 // and are, therefore more likely to be pure.
@@ -115,6 +116,7 @@ function Pomodoro() {
                 spanClass="oi oi-minus"
                 focusDuration={focusDuration}
                 setFocusDuration={setFocusDuration}
+                isTimerRunning={isTimerRunning}
               />
               {/* TODO: Implement increasing focus duration  and disable during a focus or break session */}
               <ButtonHandler
@@ -124,6 +126,7 @@ function Pomodoro() {
                 spanClass="oi oi-plus"
                 focusDuration={focusDuration}
                 setFocusDuration={setFocusDuration}
+                isTimerRunning={isTimerRunning}
               />
             </div>
           </div>
@@ -144,6 +147,7 @@ function Pomodoro() {
                   spanClass="oi oi-minus"
                   breakDuration={breakDuration}
                   setBreakDuration={setBreakDuration}
+                  isTimerRunning={isTimerRunning}
                 />
                 {/* TODO: Implement increasing break duration and disable during a focus or break session*/}
                 <ButtonHandler
@@ -153,6 +157,7 @@ function Pomodoro() {
                   spanClass="oi oi-plus"
                   breakDuration={breakDuration}
                   setBreakDuration={setBreakDuration}
+                  isTimerRunning={isTimerRunning}
                 />
               </div>
             </div>
@@ -183,14 +188,13 @@ function Pomodoro() {
             </button>
             {/* TODO: Implement stopping the current focus or break session. and disable the stop button when there is no active session */}
             {/* TODO: Disable the stop button when there is no active session */}
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-testid="stop"
-              title="Stop the session"
-            >
-              <span className="oi oi-media-stop" />
-            </button>
+            <StopButtonHandler
+              isTimerRunning={isTimerRunning}
+              setIsTimerRunning={setIsTimerRunning}
+              setFocusDuration={setFocusDuration}
+              setBreakDuration={setBreakDuration}
+              setSession={setSession}
+            />
           </div>
         </div>
       </div>

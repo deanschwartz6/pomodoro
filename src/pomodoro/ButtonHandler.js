@@ -1,6 +1,6 @@
 import React from "react";
 
-function ButtonHandler({dataTestId, spanClass, className, type, focusDuration, setFocusDuration, breakDuration, setBreakDuration}) {
+function ButtonHandler({dataTestId, spanClass, className, type, focusDuration, setFocusDuration, breakDuration, setBreakDuration, isTimerRunning}) {
     const handleClick = () => {
         if (dataTestId.includes("increase-focus")){
             if (focusDuration > 59){
@@ -32,17 +32,30 @@ function ButtonHandler({dataTestId, spanClass, className, type, focusDuration, s
             }
         }
     };
-
-    return (
-        <button
-        type={type}
-        className={className}
-        data-testid={dataTestId}
-        onClick={handleClick}
-        >
-            <span className={spanClass} />
-        </button>
-    );
+    if (isTimerRunning === false){
+        return (
+            <button
+            type={type}
+            className={className}
+            data-testid={dataTestId}
+            onClick={handleClick}
+            >
+                <span className={spanClass} />
+            </button>
+        );
+    } else {
+        return (
+            <button
+            type={type}
+            className={className}
+            data-testid={dataTestId}
+            onClick={handleClick}
+            disabled={true}
+            >
+                <span className={spanClass} />
+            </button>
+        );
+    }
 };
 
 export default ButtonHandler;
